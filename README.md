@@ -10,7 +10,7 @@ The model is trained to take blurred images as input and produce sharp images as
 - Note: The dataset mentioned in the earlier project proposal is not used. Only the link provided above is correct.
 
 ## Model Architecture
-- The model follows an Encoder → Bottleneck → Decoder structure.
+- The model follows an Encoder → Bottleneck → Decoder structure. It is based U-Net architecture.
 - It is trained using pairs of blurred and sharp images.
 - Loss Function:
   - Initially uses MSE loss.
@@ -28,16 +28,46 @@ The model is trained to take blurred images as input and produce sharp images as
   - To display more images, modify the `num_images` variable in `predict.py`.
   - After closing one displayed image, the next one will appear automatically.
 
+ ## Trained Models
+
+The `checkpoints` folder contains trained model weights:
+
+1. `final_weights.pth` - The final trained model weights
+2. (After training) Two additional files will be generated:
+   - `checkpoint.pth` - Contains epoch number and optimizer state (for resuming training)
+   - `checkpoint_without_optimizer.pth` - Contains only model weights (for inference/prediction)
+
+## Prediction Instructions
+
+The `predict.py` script handles model inference with the following workflow:
+
+1. Place your test images in the `data/blur` folder
+2. The script uses a dataloader that automatically picks images from:
+   - `data/blur` - For input blurred images
+   - `data/sharp` - For corresponding ground truth (if available for comparison)
+3. The `predict` function takes two arguments:
+   - `dataloader` - Handles loading of images
+   - `model` - The trained deblurring model
+
+Note: The current implementation differs slightly from prediction script mentioned in google classrom as it processes images through the dataloader rather than file path.
+
+## Training Details
+
+The `train.py` script implements the training loop with these characteristics:
+
+- Uses `tqdm` package for progress bars during training. Due to this the loop differs slightly from that mentioned in google classrom.
+
+
 ## Important Note
-- A better model was built, but it exceeds GitHub’s 100MB file size limit, and therefore could not be uploaded.
+- A better model was built, but it exceeds GitHub’s 100MB file size limit, and therefore could not be uploaded. I will soon upload a drive link to that model. Till then there's a smaller model available for immediate usage in checkpoint with name `final_weights.pth`
 
 ## Requirements
-- Python 3.x
+- Python 
 - PyTorch
 - tqdm
 - (Other dependencies can be installed as needed.)
 
-## Quick Start
+## Usage Example
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/your-repo-name.git
