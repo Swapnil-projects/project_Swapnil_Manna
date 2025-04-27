@@ -20,14 +20,15 @@ The model is trained to take blurred images as input and produce sharp images as
 ## Project Structure
 - Training:
   - The dataset is split into training and validation sets.
-  - Cross-validation was not used; the split remains constant. This is because of availability 
+  - Cross-validation was not used; the split remains constant. This is because of availability of large number of data.
   - Training progress is shown using tqdm loading bars.
   - The prediction is done on the validation dataset created.
 - Prediction (predict.py):
   - Displays blurred input, model output, and ground truth images sequentially.
   - To display more images, modify the `num_images` variable in `predict.py`.
   - After closing one displayed image, the next one will appear automatically.
-
+ 
+    
  ## Trained Models
 
 The `checkpoints` folder contains trained model weights:
