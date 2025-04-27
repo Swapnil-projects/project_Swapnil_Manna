@@ -10,6 +10,48 @@ The model is trained to take blurred images as input and produce sharp images as
 - Note: The dataset mentioned in the earlier project proposal is not used. Only the link provided above is correct.
 
 ## Model Architecture
+
+```mermaid
+graph TD
+    %% Encoder (Downsampling)
+    Input[Input Image<br>3×H×W] --> Enc1[Enc1 Block<br>3→48]
+    Enc1 --> Pool1[MaxPool 2×2]
+    Pool1 --> Enc2[Enc2 Block<br>48→96]
+    Enc2 --> Pool2[MaxPool 2×2]
+    Pool2 --> Enc3[Enc3 Block<br>96→192]
+    Enc3 --> Pool3[MaxPool 2×2]
+    Pool3 --> Enc4[Enc4 Block<br>192→384]
+    Enc4 --> Pool4[MaxPool 2×2]
+    
+    %% Bottleneck
+    Pool4 --> Bottleneck[Bottleneck<br>384→512<br>Dropout 0.3]
+    
+    %% Decoder (Upsampling + Skip Connections)
+    Bottleneck --> Up4[UpConv 512→384]
+    Up4 --> Merge4{{Concat}}
+    Enc4 --> Merge4
+    Merge4 --> Dec4[Dec4 Block<br>768→384]
+    
+    Dec4 --> Up3[UpConv 384→192]
+    Up3 --> Merge3{{Concat}}
+    Enc3 --> Merge3
+    Merge3 --> Dec3[Dec3 Block<br>384→192]
+    
+    Dec3 --> Up2[UpConv 192→96]
+    Up2 --> Merge2{{Concat}}
+    Enc2 --> Merge2
+    Merge2 --> Dec2[Dec2 Block<br>192→96]
+    
+    Dec2 --> Up1[UpConv 96→48]
+    Up1 --> Merge1{{Concat}}
+    Enc1 --> Merge1
+    Merge1 --> Dec1[Dec1 Block<br>96→48]
+    
+    %% Output
+    Dec1 --> Output[1×1 Conv<br>48→3<br>Tanh]
+```
+
+
 - The model follows an Encoder → Bottleneck → Decoder structure. It is based on U-Net architecture.
 - It is trained using pairs of blurred and sharp images.
 - Loss Function:
