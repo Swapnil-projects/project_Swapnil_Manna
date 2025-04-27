@@ -85,7 +85,7 @@ The `checkpoints` folder contains trained model weights:
 The current `predict.py` script handles model inference with the following workflow:
 
 1. It contains `show_predictions(blur folder path, num_images = 1)` which takes path of the folder where blur images are stored in.
-2. It then predicts the outcome based on the trained model in checkpoint folder.
+2. It then predicts the outcome based on the trained model in checkpoints folder.
 3. The number of images it predicts from the `blur folder path` depends on `num_images` mentioned. By default it is 1.
 
 
