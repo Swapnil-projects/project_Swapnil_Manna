@@ -50,7 +50,7 @@ The `predict.py` script handles model inference with the following workflow:
    - `dataloader` - Handles loading of images
    - `model` - The trained deblurring model
 
-Note: The current implementation differs slightly from prediction script mentioned in google classrom as it processes images through the dataloader rather than file path.
+Note: The current implementation differs slightly from prediction script mentioned in google classrom as it processes images through the dataloader rather than file path. Also make sure to set high `val_ratio` in `get_dataloaders` in `dataset.py` while running inference so that all images can be tested. Alternatively enable shuffle in val_loader in get_dataloaders in `dataset.py`
 
 ## Training Details
 
