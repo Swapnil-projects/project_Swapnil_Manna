@@ -108,7 +108,7 @@ The `train.py` script implements the training loop with these characteristics:
 
 
 ## Important Note
-- A better model was built, but it exceeds GitHub’s 100MB file size limit, and therefore could not be uploaded. I will soon upload a drive link to that model. Till then there's a smaller model available for immediate usage in `checkpoint` with name `final_weights.pth`
+- A better model was built, but it exceeds GitHub’s 100MB file size limit, and therefore could not be uploaded. I will soon upload a drive link to that model. Till then there's a smaller model available for immediate usage in `checkpoints` with name `final_weights.pth`
 
 ## Requirements
 - Python 
