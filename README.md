@@ -10,7 +10,7 @@ The model is trained to take blurred images as input and produce sharp images as
 - Note: The dataset mentioned in the earlier project proposal is not used. Only the link provided above is correct.
 
 ## Model Architecture
-- The model follows an Encoder → Bottleneck → Decoder structure. It is based U-Net architecture.
+- The model follows an Encoder → Bottleneck → Decoder structure. It is based on U-Net architecture.
 - It is trained using pairs of blurred and sharp images.
 - Loss Function:
   - Initially uses MSE loss.
