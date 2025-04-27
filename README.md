@@ -40,8 +40,15 @@ The `checkpoints` folder contains trained model weights:
 
 ## Prediction Instructions
 
-The `predict.py` script handles model inference with the following workflow:
+The current `predict.py` script handles model inference with the following workflow:
 
+1. It contains `show_predictions(blur folder path, num_images = 1)` which takes path of the folder where blur images are stored in.
+2. It then predicts the outcome based on the trained model in checkpoint folder.
+3. The number of images it predicts from the `blur folder path` depends on `num_images` mentioned. By default it is 1.
+
+
+
+### NOTE : THE `predict.py` HAS BEEN EDITED LATER. IF YOU RUN THE OLDER VERSION, EITHER RECLONE OR FOLLOW THE BELOW INSTRUCTIONS WRITTEN FOR OLDER VERSION OF `predict.py`.
 1. Place your test images in the `data/blur` folder
 2. The script uses a dataloader that automatically picks images from:
    - `data/blur` - For input blurred images
@@ -49,8 +56,7 @@ The `predict.py` script handles model inference with the following workflow:
 3. The `predict` function takes two arguments:
    - `dataloader` - Handles loading of images
    - `model` - The trained deblurring model
-
-Note: The current implementation differs slightly from prediction script mentioned in google classrom as it processes images through the dataloader rather than file path. Also make sure to set high `val_ratio` in `get_dataloaders` in `dataset.py` while running inference so that all images can be tested. Alternatively enable shuffle in val_loader in get_dataloaders in `dataset.py`
+ 4. Also make sure to set high `val_ratio` in `get_dataloaders` in `dataset.py` while running inference so that all images can be tested. Alternatively enable shuffle in val_loader in get_dataloaders in `dataset.py`
 
 ## Training Details
 
@@ -60,7 +66,7 @@ The `train.py` script implements the training loop with these characteristics:
 
 
 ## Important Note
-- A better model was built, but it exceeds GitHub’s 100MB file size limit, and therefore could not be uploaded. I will soon upload a drive link to that model. Till then there's a smaller model available for immediate usage in checkpoint with name `final_weights.pth`
+- A better model was built, but it exceeds GitHub’s 100MB file size limit, and therefore could not be uploaded. I will soon upload a drive link to that model. Till then there's a smaller model available for immediate usage in `checkpoint` with name `final_weights.pth`
 
 ## Requirements
 - Python 
