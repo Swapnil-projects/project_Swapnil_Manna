@@ -71,7 +71,7 @@ The `train.py` script implements the training loop with these characteristics:
 ## Usage Example
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/Swapnil-projects/project_Swapnil_Manna.git
 
 # Install dependencies
 pip install -r requirements.txt
