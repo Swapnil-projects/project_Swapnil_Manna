@@ -51,54 +51,70 @@ if os.path.exists(checkpoint_path):
 else:
     print("Starting training from scratch")
 
-# Training loop. Tqdm used for loading bar
-for epoch in range(start_epoch, num_epochs):
-    model.train()
-    running_loss = 0.0
-    print(f"\nEpoch {epoch + 1}/{num_epochs}")
+# Training loop. Tqdm used for loading bar. Currently takes start_epoch = 0. When I trained I used the variable start_epoch.
+# Since tqdm is used , training loop is slightly different from that expected.
 
-    loop = tqdm(train_dataloader, desc="Training", leave=False)
-    for batch_idx, (blurred, sharp) in enumerate(loop):
-        blurred, sharp = blurred.to(device), sharp.to(device)
+def training_loop(model, num_epochs, train_dataloader, combined_loss, optimizer):
+    for epoch in range(0, num_epochs): #instead of 0, variable - start_epoch can be used
+        model.train()
+        running_loss = 0.0
+        print(f"\nEpoch {epoch + 1}/{num_epochs}")
 
-        optimizer.zero_grad()
-        output = model(blurred)
-        loss = combined_loss(output, sharp)  # Use combined loss
-        loss.backward()
-        optimizer.step()
+        loop = tqdm(train_dataloader, desc="Training", leave=False)
+        for batch_idx, (blurred, sharp) in enumerate(loop):
 
-        batch_loss = loss.item()
-        running_loss += batch_loss
-
-        loop.set_postfix(loss=f"{batch_loss:.6f}")
-
-    avg_loss = running_loss / len(train_dataloader)
-    print(f"Epoch [{epoch + 1}] Training Loss: {avg_loss:.6f}")
-
-    # Validation
-    model.eval()
-    val_loss = 0.0
-    with torch.no_grad():
-        for blurred, sharp in val_dataloader:
             blurred, sharp = blurred.to(device), sharp.to(device)
+
+            optimizer.zero_grad()
             output = model(blurred)
-            loss = combined_loss(output, sharp)
-            val_loss += loss.item()
-    avg_val_loss = val_loss / len(val_dataloader)
-    print(f"Epoch [{epoch + 1}] Validation Loss: {avg_val_loss:.6f}")
+            loss = combined_loss(output, sharp)  # Use combined loss
+            loss.backward()
+            optimizer.step()
 
-    # Save checkpoint (includes epoch number, optimizer - so that we can train again from exactly this point)
-    os.makedirs(checkpoint_dir, exist_ok=True)
-    torch.save({
-        'epoch': epoch,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict()
-    }, checkpoint_path)
+            batch_loss = loss.item()
+            running_loss += batch_loss
 
-    # Save checkpoint only with weights for prediction, without optimizer. This model is named so that it doesnt clash with final_weights.pth which is the trained model. 
-    # "final_weights.pth" was generated in similar style during training.
+            loop.set_postfix(loss=f"{batch_loss:.6f}")
 
-    torch.save(model.state_dict(), os.path.join(checkpoint_dir, "checkpoint_without_optimizer.pth"))
+        avg_loss = running_loss / len(train_dataloader)
+        print(f"Epoch [{epoch + 1}] Training Loss: {avg_loss:.6f}")
+
+        # Validation
+        model.eval()
+        val_loss = 0.0
+        with torch.no_grad():
+            for blurred, sharp in val_dataloader:
+                blurred, sharp = blurred.to(device), sharp.to(device)
+                output = model(blurred)
+                loss = combined_loss(output, sharp)
+                val_loss += loss.item()
+        avg_val_loss = val_loss / len(val_dataloader)
+        print(f"Epoch [{epoch + 1}] Validation Loss: {avg_val_loss:.6f}")
 
 
+
+        # Save checkpoint (includes epoch number, optimizer - so that we can train again from exactly this point)
+
+        #Base Path
+        base_dir = os.path.dirname(os.path.abspath(__file__))  # this is script's directory
+
+
+        #Checkpoints directory
+        checkpoint_dir = os.path.join(base_dir, "checkpoints")
+
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict()
+        }, checkpoint_path)
+
+        # Save checkpoint only with weights for prediction, without optimizer. This model is named so that it doesnt clash with final_weights.pth which is the trained model. 
+        # "final_weights.pth" was generated in similar style during training.
+
+        torch.save(model.state_dict(), os.path.join(checkpoint_dir, "checkpoint_without_optimizer.pth"))
+
+        print("checkpoint saved")
+
+training_loop(model, num_epochs, train_dataloader, combined_loss, optimizer)
 
