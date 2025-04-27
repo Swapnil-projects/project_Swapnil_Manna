@@ -6,22 +6,23 @@ The model is trained to take blurred images as input and produce sharp images as
 
 ## Dataset
 - The dataset used is from Kaggle.  
-- [Dataset Link](INSERT_KAGGLE_LINK_HERE)
+- [Dataset Link](https://www.kaggle.com/datasets/emrehakanerdemir/face-deblurring-dataset-using-celeba)
 - Note: The dataset mentioned in the earlier project proposal is not used. Only the link provided above is correct.
 
 ## Model Architecture
 - The model follows an Encoder → Bottleneck → Decoder structure.
 - It is trained using pairs of blurred and sharp images.
 - Loss Function:
-  - Initially uses GMSE (a modified version of MSE) loss.
+  - Initially uses MSE loss.
   - Later, switches to a hybrid loss combining MSE and Gradient Loss.
   - The balance between MSE and Gradient Loss is controlled by a parameter (alpha) defined in the `config` file.
 
 ## Project Structure
 - Training:
   - The dataset is split into training and validation sets.
-  - Cross-validation was not used; the split remains constant.
+  - Cross-validation was not used; the split remains constant. This is because of availability 
   - Training progress is shown using tqdm loading bars.
+  - The prediction is done on the validation dataset created.
 - Prediction (predict.py):
   - Displays blurred input, model output, and ground truth images sequentially.
   - To display more images, modify the `num_images` variable in `predict.py`.

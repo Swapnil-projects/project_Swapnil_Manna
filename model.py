@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class DeblurModel(nn.Module):
     def __init__(self):
-        super(OptimizedMediumSmallUNet, self).__init__()
+        super(DeblurModel, self).__init__()
 
         def conv_block(in_c, out_c):
             return nn.Sequential(

@@ -98,7 +98,7 @@ for epoch in range(start_epoch, num_epochs):
     # Save checkpoint only with weights for prediction, without optimizer. This model is named so that it doesnt clash with final_weights.pth which is the trained model. 
     # "final_weights.pth" was generated in similar style during training.
 
-    torch.save(model.state_dict(), "checkpoint_without_optimizer.pth")
+    torch.save(model.state_dict(), os.path.join(checkpoint_dir, "checkpoint_without_optimizer.pth"))
 
 
 

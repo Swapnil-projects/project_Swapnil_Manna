@@ -7,7 +7,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 #Hyperparameters
 batch_size = 8
 learning_rate = 1e-4
-num_epochs = 30
+num_epochs = 10
 
 #Image
 image_size = (128, 128)

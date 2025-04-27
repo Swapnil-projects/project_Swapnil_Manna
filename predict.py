@@ -48,14 +48,10 @@ if __name__ == "__main__":
     from dataset import val_dataloader
 
     # Load model. Currently, this loads the model that i have trained.
-    model = DeblurModel.to(device)
+    model = DeblurModel().to(device)
+
     checkpoint_path = "checkpoints/final_weights.pth"
-
-
-
-
-    checkpoint = torch.load(checkpoint_path, map_location=device)
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model.load_state_dict(torch.load(checkpoint_path, map_location=device))
 
 
 
