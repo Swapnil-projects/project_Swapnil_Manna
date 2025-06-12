@@ -89,17 +89,6 @@ The current `predict.py` script handles model inference with the following workf
 3. The number of images it predicts from the `blur folder path` depends on `num_images` mentioned. By default it is 1.
 
 
-
-### NOTE : THE `predict.py` HAS BEEN EDITED LATER. IF YOU RUN THE OLDER VERSION, EITHER RECLONE OR FOLLOW THE BELOW INSTRUCTIONS WRITTEN FOR OLDER VERSION OF `predict.py`.
-1. Place your test images in the `data/blur` folder
-2. The script uses a dataloader that automatically picks images from:
-   - `data/blur` - For input blurred images
-   - `data/sharp` - For corresponding ground truth (if available for comparison)
-3. The `predict` function takes two arguments:
-   - `dataloader` - Handles loading of images
-   - `model` - The trained deblurring model
- 4. Also make sure to set high `val_ratio` in `get_dataloaders` in `dataset.py` while running inference so that all images can be tested. Alternatively enable shuffle in val_loader in get_dataloaders in `dataset.py`
-
 ## Training Details
 
 The `train.py` script implements the training loop with these characteristics:
