@@ -7,7 +7,7 @@ The model is trained to take blurred images as input and produce sharp images as
 ## Dataset
 - The dataset used is from Kaggle.  
 - [Dataset Link](https://www.kaggle.com/datasets/emrehakanerdemir/face-deblurring-dataset-using-celeba)
-- Note: The dataset mentioned in the earlier project proposal is not used. Only the link provided above is correct.
+
 
 ## Model Architecture
 
